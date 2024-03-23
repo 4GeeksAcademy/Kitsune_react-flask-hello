@@ -1,0 +1,13 @@
+.background-signup {
+    background-image: url("https://i.postimg.cc/7hkFTGFy/signup1.jpg");
+    background-repeat: no-repeat;
+    background-size:auto;
+    
+}
+
+.container-signup {
+    background-color: white;
+    width: 650px;
+    margin-left: 480px;
+    padding: 50px 80px 60px 40px;
+}

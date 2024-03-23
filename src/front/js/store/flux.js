@@ -13,7 +13,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			login:false, //Tiene que estar falso para que no esté logado nada más entrar en la web
+			users: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -46,7 +48,54 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+
+			login: (email,password) => {
+				console.log("login desde flux", email, password)
+				const requestOptions = {
+					method: "POST",
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({
+						"email": email,
+						"password": password
+					  })
+				  };
+				  
+				  fetch(process.env.BACKEND_URL + "api/login", requestOptions)
+				  .then((response) => {
+					console.log(response.status)
+					return response.json()
+				  })
+				  .then((data) => {
+					localStorage.setItem("token", data.access_token)
+					console.log(data)
+				  })
+				  .catch((error) => console.error(error));
+			},
+
+			addUser: (email,password) => {
+				console.log("signup desde flux", email, password)
+				const requestOptions = {
+					method: "POST",
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({
+						"email": email,
+						"password": password
+					  })
+				  };
+				  
+				  fetch(process.env.BACKEND_URL + "api/signup", requestOptions)
+				  .then((response) => {
+					console.log(response.status)
+					return response.json()
+				  })
+				  .then((data) => {
+					localStorage.setItem("token", data.access_token)
+					console.log(data)
+				  })
+				  .catch((error) => console.error(error));
+			},
+
 		}
 	};
 };

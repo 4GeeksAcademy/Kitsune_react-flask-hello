@@ -1,0 +1,16 @@
+.background-login {
+    background-image: url("https://i.postimg.cc/cHSb0tYV/Sin-t-tulo-1.jpg");
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    justify-content: center;
+  
+}
+
+.container-login{
+    background: linear-gradient(to right, #70ff1d, #4cae7f00);
+    background-size:auto;
+    width: 650px;
+    padding: 50px;
+    height: 270px;
+    padding: 30px;
+}
