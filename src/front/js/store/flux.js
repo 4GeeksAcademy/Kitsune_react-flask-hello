@@ -61,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					  })
 				  };
 				  
-				  fetch(process.env.BACKEND_URL + "api/login", requestOptions)
+				  fetch(process.env.BACKEND_URL + "/api/login", requestOptions)
 				  .then((response) => {
 					console.log(response.status)
 					return response.json()
@@ -84,7 +84,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					  })
 				  };
 				  
-				  fetch(process.env.BACKEND_URL + "api/signup", requestOptions)
+				  fetch(process.env.BACKEND_URL + "/api/signup", requestOptions)
 				  .then((response) => {
 					console.log(response.status)
 					return response.json()
