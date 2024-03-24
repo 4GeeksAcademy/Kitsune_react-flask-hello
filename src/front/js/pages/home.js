@@ -14,7 +14,7 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			
 			<h1>Hello Rigo!!</h1>
-			{store.login==="True" ? "Ya estás logeado" : "No estás logueado, accede a tu cuenta o regístrate"}
+			{store.autentificacion === true ? "Ya estás logeado, puedes acceder a la zona privada" : "No estás logueado, accede a tu cuenta o regístrate"}
 			<p>
 				<img src={rigoImageUrl} />
 			</p>

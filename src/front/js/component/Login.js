@@ -11,11 +11,14 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    actions.login(email,password)
-}
+    actions.login(email, password);
+  }
+
+  
 
   return (
     < >
+     {store.autentificacion === true ? <Navigate to = "/private"/> :  
       <div className="jumbotron jumbotron-fluid  background-login ">
       <div className='container-login'>
              <form onSubmit={handleSubmit}>
@@ -45,6 +48,7 @@ const Login = () => {
             </form>
         </div>
       </div>
+      }
     </ >
   )
 }

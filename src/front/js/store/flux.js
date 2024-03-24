@@ -14,8 +14,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			login:false, //Tiene que estar falso para que no esté logado nada más entrar en la web
-			users: [],
+			autentificacion:false, //Tiene que estar falso para que no esté logado nada más entrar en la web
+	 
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -35,6 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+
+		
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
@@ -50,6 +52,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 
+			
+
 			login: (email,password) => {
 				console.log("login desde flux", email, password)
 				const requestOptions = {
@@ -64,6 +68,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  fetch(process.env.BACKEND_URL + "/api/login", requestOptions)
 				  .then((response) => {
 					console.log(response.status)
+					if (response.status==200){
+						setStore({ autentificacion: true });
+					}
 					return response.json()
 				  })
 				  .then((data) => {
@@ -96,6 +103,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  .catch((error) => console.error(error));
 			},
 
+			logout: ()=>{
+				console.log("sacame de aqui");
+				setStore({ autentificacion: false })
+				localStorage.removeItem("token")
+			}
 		}
 	};
 };
