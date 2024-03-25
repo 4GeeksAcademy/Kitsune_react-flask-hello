@@ -75,7 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  })
 				  .then((data) => {
 					localStorage.setItem("token", data.access_token)
-					console.log(data)
+					console.log("DATA Login-->", data)
 				  })
 				  .catch((error) => console.error(error));
 			},
@@ -98,10 +98,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  })
 				  .then((data) => {
 					localStorage.setItem("token", data.access_token)
-					console.log(data)
+					console.log("DATA AddUser-->", data)
 				  })
 				  .catch((error) => console.error(error));
 			},
+
+			privateZone: ( )=>{
+				const token = localStorage.getItem("jwt-token");
+			 
+				const requestOptions = {
+					method: "GET",
+					headers:  {
+						"Content-Type": "application/json",
+						'Authorization': 'Bearer ' + token }
+					  };
+				  
+				  
+				  fetch(process.env.BACKEND_URL + "/api/protected", requestOptions)
+					  .then((response) => {
+						console.log(response.status)
+						if (response.status==200){
+							setStore({ autentificacion: true });
+						}  
+						return response.json()
+					  })
+					  .then((data) => {
+						localStorage.setItem("token", data.access_token);
+						localStorage.setItem("email", data.user_email);
+						console.log("DATA private-->", data);
+					  })
+					  .catch((error) => console.error(error));
+				},
+			
 
 			logout: ()=>{
 				console.log("sacame de aqui");

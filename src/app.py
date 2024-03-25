@@ -113,11 +113,12 @@ def login():
     user = User.query.filter_by(email=body["email"]).first()
     if user is None:
         return jsonify({"msg":"El usuario no existe"})
-    if user.password != body["password"]:
-        return  jsonify({"msg":"Contraseña incorrecta"})
+    if not bcrypt.check_password_hash(user.password, body["password"]):
+        return  jsonify({"msg":"Contraseña incorrecta"}), 400
     access_token = create_access_token(identity=user.email)
     return jsonify({"msg":"Login correcto",
-                    "token":access_token})
+                    "token":access_token,
+                    "user": user.serialize()}), 200
 
 
 @app.route('/<path:path>', methods=['GET'])
@@ -132,9 +133,15 @@ def serve_any_other_file(path):
 @app.route("/api/protected", methods=["GET"])
 @jwt_required()
 def protected():
-    # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
+    user=User.query.filter_by(email=current_user).first()
+    
+    # print(current_user)
+    # print(user)
+    # print(user.serialize())
+    # print(user.email)
+    # print(user.id)
+    return jsonify({"user": user.email}), 200
  
 
 # this only runs if `$ python src/main.py` is executed
